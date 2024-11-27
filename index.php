@@ -1,4 +1,6 @@
 <?php
+defined('ABSPATH') || die();
+
 get_header(null,['header_name' => 'index']);
 
 get_template_part('partials/index/index-section','hero');

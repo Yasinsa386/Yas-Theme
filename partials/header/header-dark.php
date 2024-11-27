@@ -1,4 +1,4 @@
-<body class="preloader-visible" data-barba="wrapper">
+<body <?php body_class('preloader-visible'); ?> data-barba="wrapper">
 <!-- preloader start -->
 <div class="preloader js-preloader">
     <div class="preloader__bg"></div>
