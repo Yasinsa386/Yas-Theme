@@ -1,83 +1,142 @@
 <section class="layout-pt-lg layout-pb-lg">
     <div data-anim-wrap class="container">
-        <div data-anim-child="slide-left delay-1" class="row y-gap-20 justify-between items-center">
+        <div class="row y-gap-15 justify-between items-end">
             <div class="col-lg-6">
 
                 <div class="sectionTitle ">
 
                     <h2 class="sectionTitle__title ">وبلاگ</h2>
 
-                    <p class="sectionTitle__text ">لورم ایپسوم متن ساختگی با تولید سادگی است.</p>
+                    <p class="sectionTitle__text ">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم است.</p>
 
                 </div>
 
             </div>
 
             <div class="col-auto">
-
-                <a href="#" class="button -icon -purple-3 text-purple-1">
-                    مشاهده همه
-                    <i class="icon-arrow-top-right text-13 mr-10"></i>
-                </a>
-
+                <div class="d-flex justify-center x-gap-15 items-center">
+                    <div class="col-auto">
+                        <button class="d-flex items-center text-24 arrow-left-hover js-events-slider-prev">
+                            <i class="icon icon-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="col-auto">
+                        <div class="pagination -arrows js-events-slider-pagination"></div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="d-flex items-center text-24 arrow-right-hover js-events-slider-next">
+                            <i class="icon icon-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="row y-gap-30 pt-60">
+        <div class="pt-60 lg:pt-40 js-section-slider" data-gap="30" data-pagination="js-events-slider-pagination"
+             data-nav-prev="js-events-slider-prev" data-nav-next="js-events-slider-next" data-slider-cols="xl-3 lg-2">
+            <div class="swiper-wrapper">
+                <?php
+                if (have_posts()):
+                    while (have_posts()):
+                        the_post();
+                #for post Levels
+                        $levels_array = [
+                            null,
+                            'مقدماتی',
+                            'متوسط',
+                            'پیشرفته',
+                        ];
+                        $post_level = get_post_meta(get_the_ID(), '_yt_post_level', true);
+                        if (array_key_exists($post_level, $levels_array)) {
+                            $post_level_text = $levels_array[$post_level];
+                        }
+                #for category
+                        $category_id = get_post_meta(get_the_ID(), '_yt_category_name' ,true);
+                        if (!empty($category_id)) $category_name = get_the_category_by_ID($category_id);
+                        ?>
+                        <div class="swiper-slide col-lg-3 col-md-6">
+                            <div data-anim-child="slide-up delay-2" class="is-in-view">
 
-            <div class="col-lg-3 col-md-6">
-                <div data-anim-child="slide-left delay-2" class="blogCard -type-1">
-                    <div class="blogCard__image">
-                        <img src="<?=get_template_directory_uri()?>/assets/img/home-3/blog/1.png" alt="image">
-                    </div>
-                    <div class="blogCard__content mt-20">
-                        <a href="blog-single.html" class="blogCard__category">طراحی وب</a>
-                        <h4 class="blogCard__title text-16 lh-15 mt-5">7 قابلیت بهینه شده برای LINQ در Net 6.</h4>
-                        <div class="blogCard__date text-14 mt-5">16 مهر 1400</div>
-                    </div>
-                </div>
+                                <a href="<?=get_the_permalink()?>" class="coursesCard -type-1 ">
+                                    <div class="relative">
+                                        <?php if (has_post_thumbnail()): ?>
+                                            <div class="coursesCard__image overflow-hidden rounded-8">
+                                                <?php the_post_thumbnail('thumbnail', ['class' => 'w-1/1', 'style' => 'width=300px; height=200px; object-fit: cover;']); ?>
+                                                <div class="coursesCard__image_overlay rounded-8"></div>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
+
+                                            <div>
+                                                <div class="px-15 rounded-200 bg-purple-1">
+                                                    <span class="text-11 lh-1 uppercase fw-500 text-white">ویژه</span>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div class="px-15 rounded-200 bg-green-1">
+                                                    <span class="text-11 lh-1 uppercase fw-500 text-dark-1">پروفروش</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="h-100 pt-15">
+                                        <div class="d-flex items-center">
+                                            <div class="text-14 lh-1 text-yellow-1 ml-10">4.5</div>
+                                            <div class="d-flex x-gap-5 items-center">
+                                                <div class="icon-star text-9 text-yellow-1"></div>
+                                                <div class="icon-star text-9 text-yellow-1"></div>
+                                                <div class="icon-star text-9 text-yellow-1"></div>
+                                                <div class="icon-star text-9 text-yellow-1"></div>
+                                                <div class="icon-star text-9 text-yellow-1"></div>
+                                            </div>
+                                            <div class="text-13 lh-1 mr-10">(1991)</div>
+                                        </div>
+
+                                        <div class="text-17 lh-15 fw-500 text-dark-1 mt-10"><?php the_title() ?></div>
+
+                                        <div class="d-flex x-gap-10 items-center pt-10">
+
+                                            <div class="d-flex items-center">
+                                                <div class="ml-8">
+                                                    <img src="<?= get_template_directory_uri() ?>/assets/img/coursesCards/icons/1.svg"
+                                                         alt="icon">
+                                                </div>
+                                                <div class="text-14 lh-1">6 دوره</div>
+                                            </div>
+<!--                                            category-->
+                                            <?php if (!empty($category_name)):?>
+                                            <div class="d-flex items-center">
+                                                <div class="d-flex items-center">
+                                                    <i class="icon-play text-15 ml-10"></i>
+                                                    <div class="text-13 lh-1"><?=$category_name?></div>
+                                                </div>
+                                            </div>
+                                            <?php endif; ?>
+<!--                                            Levels-->
+                                            <?php if (!empty($post_level_text)) :?>
+                                            <div class="d-flex items-center">
+                                                <div class="ml-8">
+                                                    <img src="<?= get_template_directory_uri() ?>/assets/img/coursesCards/icons/3.svg"
+                                                         alt="icon">
+                                                </div>
+                                                <div class="text-14 lh-1"><?= $post_level_text ?></div>
+                                            </div>
+                                            <?php $post_level_text = null; endif;?>
+
+                                        </div>
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+                    <?php endwhile; endif; ?>
+
+
             </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div data-anim-child="slide-left delay-3" class="blogCard -type-1">
-                    <div class="blogCard__image">
-                        <img src="<?=get_template_directory_uri()?>/assets/img/home-3/blog/2.png" alt="image">
-                    </div>
-                    <div class="blogCard__content mt-20">
-                        <a href="blog-single.html" class="blogCard__category">بازاریابی</a>
-                        <h4 class="blogCard__title text-16 lh-15 mt-5">بهترین عملکردهای طراحی UX</h4>
-                        <div class="blogCard__date text-14 mt-5">16 مهر 1400</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div data-anim-child="slide-left delay-4" class="blogCard -type-1">
-                    <div class="blogCard__image">
-                        <img src="<?=get_template_directory_uri()?>/assets/img/home-3/blog/3.png" alt="image">
-                    </div>
-                    <div class="blogCard__content mt-20">
-                        <a href="blog-single.html" class="blogCard__category">برنامه نویسی</a>
-                        <h4 class="blogCard__title text-16 lh-15 mt-5">نقشه راه توسعه دهنده وب در سال 2021</h4>
-                        <div class="blogCard__date text-14 mt-5">16 مهر 1400</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div data-anim-child="slide-left delay-5" class="blogCard -type-1">
-                    <div class="blogCard__image">
-                        <img src="<?=get_template_directory_uri()?>/assets/img/home-3/blog/4.png" alt="image">
-                    </div>
-                    <div class="blogCard__content mt-20">
-                        <a href="blog-single.html" class="blogCard__category">طراحی وب</a>
-                        <h4 class="blogCard__title text-16 lh-15 mt-5">نکاتی برای ساخت نمونه کارهای عالی</h4>
-                        <div class="blogCard__date text-14 mt-5">16 مهر 1400</div>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     </div>
 </section>
