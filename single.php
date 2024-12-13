@@ -1,4 +1,8 @@
 <?php
+#for view counter
+//include 'class/YtPostCounter.php';
+YtPostCounter::add(get_the_ID());
+#start
 get_header(null,['header_name' => 'dark']);
 
 get_template_part('partials/single/single-section','1');
